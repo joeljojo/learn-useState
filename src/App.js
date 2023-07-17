@@ -6,19 +6,34 @@ function App() {
   const [showMore, setShowMore] = useState(false);
   let product = productList[index];
 
+  // preventout of index error
+  // Start again when you get last product
+  let hasPrev = index > 0;
+  let hasNext = index < productList.length - 1;
+
   function handleClickNext() {
-    setIndex(index + 1);
+    if (hasNext) {
+      setIndex(index + 1);
+    }
   }
 
+  function handleClickPrevious() {
+    if (hasPrev) {
+      setIndex(index - 1);
+    }
+  }
   function handleClickShowMore() {
     setShowMore(!showMore);
   }
-  // preventout of index error
-  // Start again when you get last product
 
   return (
     <div className="product-card">
-      <button onClick={handleClickNext}>Next</button>
+      <button onClick={handleClickPrevious} disabled={!hasPrev}>
+        Previous
+      </button>
+      <button onClick={handleClickNext} disabled={!hasNext}>
+        Next
+      </button>
       <h3>
         {index + 1} of {productList.length}
       </h3>
